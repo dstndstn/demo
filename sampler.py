@@ -8,15 +8,19 @@ def lnprob(x, ivar):
 def main():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--mpi', action='store_true')
+    parser.add_argument('--mpi', action='store_true', default=False)
     parser.add_argument('--walkers', type=int, default=100)
     parser.add_argument('--steps', type=int, default=1000)
     opt = parser.parse_args()
 
     pool = None
     if opt.mpi:
+        import socket
+        import os
         from emcee.utils import MPIPool
         pool = MPIPool()
+        print('Running in MPI.  Host', socket.gethostname(), 'pid', os.getpid(),
+              'is master?', pool.is_master())
         if not pool.is_master():
             pool.wait()
             return
