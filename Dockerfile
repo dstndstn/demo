@@ -10,10 +10,10 @@ COPY my-file.txt /tmp
 
 ENV SOME_ENVIRONMENT_VARIABLE 42
 
-#RUN apt install -y openmpi-bin libopenmpi-dev gcc libc-dev python3-dev rsh-client
 RUN apt install -y mpich libmpich-dev gcc libc-dev python3-dev rsh-client
 RUN pip3 install mpi4py
 
+# Can also use the Ubuntu-supplied mpi4py library...
 #RUN apt install -y python3-mpi4py openmpi-bin rsh-client
 
 RUN mkdir /demo
